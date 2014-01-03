@@ -19,9 +19,9 @@ use \Phpmig\Migration\Migration,
 
 
 /**
- * Phpmig adapter for Zend_Db
+ * Phpmig adapter for Zend Framework 2
  *
- * @author      Wojtek Gancarczyk  <gancarczyk@gmail.com>
+ * @author      Marti Planellas <beldar.cat@gmail.com>
  */
 class Db implements AdapterInterface
 {
@@ -51,11 +51,11 @@ class Db implements AdapterInterface
      * @param \Zend_Db_Adapter_Abstract $adapter
      * @param \Zend_Config $configuration
      */
-    public function __construct(\Zend_Db_Adapter_Abstract $adapter, \Zend_Config $configuration)
+    public function __construct(\Zend\Db\Adapter\Adapter $adapter, \Zend\Config\Reader\Yaml $configuration)
     {
         $this->adapter = $adapter;
-        $this->tableName = $configuration->phpmig->tableName;
-        $this->createStatement = $configuration->phpmig->createStatement;
+        $this->tableName = $configuration['phpmig']['tableName'];
+        $this->createStatement = $configuration['phpmig']['createStatement'];
     }
 
     /**
@@ -111,7 +111,7 @@ class Db implements AdapterInterface
     {
         try {
             $schema = $this->adapter->describeTable($this->tableName);
-        } catch (\Zend_Db_Statement_Exception $exception) {
+        } catch (\Zend\Db\Exception $exception) {
             return false;
         } catch (\PDOException $exception) {
             return false;
