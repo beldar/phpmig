@@ -51,11 +51,11 @@ class Db implements AdapterInterface
      * @param \Zend_Db_Adapter_Abstract $adapter
      * @param \Zend_Config $configuration
      */
-    public function __construct(\Zend\Db\Adapter\Adapter $adapter, \Zend\Config\Reader\Yaml $configuration)
+    public function __construct(\Zend\Db\Adapter\Adapter $adapter, $tableName, $createStatement)
     {
         $this->adapter = $adapter;
-        $this->tableName = $configuration['phpmig']['tableName'];
-        $this->createStatement = $configuration['phpmig']['createStatement'];
+        $this->tableName = $tableName;
+        $this->createStatement = $createStatement;
     }
 
     /**
